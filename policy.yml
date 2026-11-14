@@ -1,0 +1,19 @@
+# Chính sách mạng của lab + ngưỡng phát hiện
+portscan:                       # SYN tới >= min_ports cổng của cùng 1 đích trong window_s giây
+  window_s: 5
+  min_ports: 20
+portscan_slow:                  # bắt scan chậm (nmap -T1/-T2); bỏ qua nguồn đã bị bắt bởi bản nhanh
+  enabled: true
+  window_s: 300
+  min_ports: 15
+arp_spoof:
+  ignore_ips: []                # IP được phép đổi MAC (vd. VIP của cặp HA)
+  ignore_mac_prefixes: ["00:00:5e:00:01", "00:00:0c:07:ac"]   # VRRP, HSRP
+dhcp:
+  allowed_servers: ["10.10.10.2"]
+bcast:
+  max_pps: 200
+vlan_subnets:
+  "10.10.10.0/24": 10
+  "10.20.20.0/24": 20
+vlan_deny_flows: [[20, 10]]     # (src_vlan, dst_vlan) bị cấm: VLAN 20 không được chủ động vào VLAN 10
