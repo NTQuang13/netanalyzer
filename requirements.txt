@@ -1,0 +1,8 @@
+scapy>=2.5
+pandas>=2.0
+numpy
+plotly>=5.18
+jinja2
+pyyaml
+requests
+pytest
