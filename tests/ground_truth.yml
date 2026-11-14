@@ -1,0 +1,17 @@
+# Kết quả kỳ vọng. Khoá là glob (so khớp theo đường dẫn tương đối trong pcaps/).
+# Giá trị là TẬP loại cảnh báo phải xuất hiện, không thừa, không thiếu.
+synthetic/clean.pcap:      []
+synthetic/portscan.pcap:   [port_scan]
+synthetic/arpspoof.pcap:   [arp_spoof]
+synthetic/rogue_dhcp.pcap: [rogue_dhcp]
+synthetic/bcast.pcap:      [broadcast_storm]
+synthetic/vlan_viol.pcap:  [vlan_violation]
+synthetic/mixed.pcap:      [port_scan, arp_spoof, rogue_dhcp, broadcast_storm, vlan_violation]
+
+# Pcap bắt từ lab Containerlab (tạo bằng lab/run_all.sh)
+lab/clean*.pcap:           []
+lab/portscan*.pcap:        [port_scan]
+lab/arpspoof*.pcap:        [arp_spoof]
+lab/rogue_dhcp*.pcap:      [rogue_dhcp]
+lab/bcast*.pcap:           [broadcast_storm]
+lab/vlan_viol*.pcap:       [vlan_violation]
