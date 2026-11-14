@@ -1,0 +1,37 @@
+# Lab 8 node:  VLAN10 (10.10.10.0/24)  +  VLAN20 (10.20.20.0/24)  +  gateway định tuyến liên VLAN
+#
+#                         +--------+ eth1 (trunk 10,20)
+#                         |   gw   |------------+
+#                         +--------+            |
+#   +-------+ eth2  +--------+ eth3  +-------+  |
+#   | dhcp  |-------|        |-------| h10a  |  |
+#   +-------+       |        | eth4  +-------+  |
+#   .2 (V10)        |  sw1   |-------| h10b  |  |   sw1 = Linux bridge, vlan_filtering
+#   +-------+ eth6  | (br0)  | eth5  +-------+  |   eth7 = cổng mirror (ingress) tới sniffer
+#   |attack |-------|        |-------| h20a  |  |
+#   +-------+       |        | eth7  +-------+  |
+#   .66 (V10)       |        |-------|sniffer|--+(không IP)
+#                   +--------+       +-------+
+name: nta
+
+topology:
+  defaults:
+    kind: linux
+    image: nta-node:latest
+  nodes:
+    sw1:      {}
+    gw:       {}
+    dhcp:     {}
+    h10a:     {}
+    h10b:     {}
+    h20a:     {}
+    attacker: {}
+    sniffer:  {}
+  links:
+    - endpoints: ["sw1:eth1", "gw:eth1"]
+    - endpoints: ["sw1:eth2", "dhcp:eth1"]
+    - endpoints: ["sw1:eth3", "h10a:eth1"]
+    - endpoints: ["sw1:eth4", "h10b:eth1"]
+    - endpoints: ["sw1:eth5", "h20a:eth1"]
+    - endpoints: ["sw1:eth6", "attacker:eth1"]
+    - endpoints: ["sw1:eth7", "sniffer:eth1"]
